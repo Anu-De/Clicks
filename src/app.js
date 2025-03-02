@@ -1,12 +1,11 @@
 import React from "react";
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import HomeScreen from "./screens/HomeScreen";
 import CreateClubScreen from "./screens/CreateClubScreen";
 import JoinClubScreen from "./screens/JoinClubScreen";
 import RegistrationScreen from "./screens/RegistrationScreen";
 import VoteScreen from "./screens/VoteScreen";
-import HomeScreen from "./screens/HomeScreen";
+import NotFoundScreen from "./screens/NotFoundScreen"; // New NotFoundScreen
 
 const App = () => {
   return (
@@ -17,6 +16,7 @@ const App = () => {
         <Route path="/join-club" element={<JoinClubScreen />} />
         <Route path="/register" element={<RegistrationScreen />} />
         <Route path="/vote" element={<VoteScreen />} />
+        <Route path="*" element={<NotFoundScreen />} /> {/* Handle unmatched routes */}
       </Routes>
     </Router>
   );

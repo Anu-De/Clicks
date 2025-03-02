@@ -1,0 +1,17 @@
+[project]
+name = "click"
+description = "A voting Thirdweb contract"
+authors = ["Anurag"]
+
+[contracts]
+path = "./contracts"  # Directory where your Solidity files are stored
+
+[compiler]
+version = "0.8.19"  # Solidity version to use
+
+[deploy]
+default_network = "mumbai"  # Default network to deploy on (e.g., Ethereum, Polygon Mumbai)
+
+[networks]
+[networks.mumbai]
+rpc_url = "https://polygon-mumbai.infura.io/v3/4dabaf48d73b48ee9b0ddbe27e0b0706"

@@ -6,20 +6,20 @@ const HomeScreen = () => {
   return (
     <Container maxWidth="sm">
       <Box textAlign="center" mt={5}>
-        <Typography variant="h3" gutterBottom>
+        <Typography variant="h3" gutterBottom fontWeight="bold">
           Welcome to Clicks
         </Typography>
-        <Typography variant="subtitle1" gutterBottom>
+        <Typography variant="h5" color="textSecondary" gutterBottom>
           Manage your college clubs, elections, and proposals seamlessly.
         </Typography>
-        <Box mt={4}>
+        <Box mt={4} display="flex" flexDirection="column" gap={2}>
           <Button
             variant="contained"
             color="primary"
             component={Link}
             to="/create-club"
             fullWidth
-            sx={{ mb: 2 }}
+            sx={{ py: 1.2 }}
           >
             Create Club
           </Button>
@@ -29,7 +29,7 @@ const HomeScreen = () => {
             component={Link}
             to="/join-club"
             fullWidth
-            sx={{ mb: 2 }}
+            sx={{ py: 1.2 }}
           >
             Join Club
           </Button>
@@ -39,7 +39,7 @@ const HomeScreen = () => {
             component={Link}
             to="/vote"
             fullWidth
-            sx={{ mb: 2 }}
+            sx={{ py: 1.2 }}
           >
             Vote
           </Button>
@@ -49,6 +49,7 @@ const HomeScreen = () => {
             component={Link}
             to="/register"
             fullWidth
+            sx={{ py: 1.2 }}
           >
             Register
           </Button>

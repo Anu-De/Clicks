@@ -1,5 +1,5 @@
 import { useContract } from "@thirdweb-dev/react";
-import { CONTRACT_ADDRESSES, CONTRACT_ABIS } from "../constants/contracts";
+import { CONTRACT_ADDRESSES, CONTRACT_ABIS } from "../abis";
 
 export const useClubRegistry = () => {
   const { contract } = useContract(CONTRACT_ADDRESSES.clubRegistry, CONTRACT_ABIS.clubRegistry);

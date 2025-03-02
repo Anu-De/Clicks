@@ -1,22 +1,41 @@
 import React, { useState } from "react";
-import { useClubRegistry } from "../contracts";
-import { Button, TextField, Container, Typography } from "@mui/material";
+import { useClubRegistry } from "../hooks/useClubRegistry";
+import { Button, TextField, Container, Typography, Snackbar } from "@mui/material";
+import MuiAlert from "@mui/material/Alert";
+
+const Alert = React.forwardRef(function Alert(props, ref) {
+  return <MuiAlert elevation={6} ref={ref} variant="filled" {...props} />;
+});
 
 const JoinClubScreen = () => {
   const { joinClub } = useClubRegistry();
   const [clubId, setClubId] = useState("");
+  const [snackbarOpen, setSnackbarOpen] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("success");
 
   const handleJoinClub = async () => {
-    try {
-      await joinClub(clubId);
-      alert("Request to join club submitted!");
-    } catch (error) {
-      alert("Failed to join club. Check the console for details.");
+    if (!clubId) {
+      setSnackbarMessage("Please enter a valid Club ID.");
+      setSnackbarSeverity("error");
+      setSnackbarOpen(true);
+      return;
     }
+
+    try {
+      await joinClub({ args: [clubId] });
+      setSnackbarMessage("Request to join club submitted!");
+      setSnackbarSeverity("success");
+    } catch (error) {
+      console.error(error);
+      setSnackbarMessage("Failed to join club. Check console for details.");
+      setSnackbarSeverity("error");
+    }
+    setSnackbarOpen(true);
   };
 
   return (
-    <Container maxWidth="sm">
+    <Container maxWidth="sm" style={{ marginTop: "20px" }}>
       <Typography variant="h4" gutterBottom>
         Join Club
       </Typography>
@@ -26,47 +45,19 @@ const JoinClubScreen = () => {
         value={clubId}
         onChange={(e) => setClubId(e.target.value)}
         margin="normal"
+        variant="outlined"
       />
-      <Button variant="contained" color="primary" onClick={handleJoinClub}>
+      <Button variant="contained" color="primary" onClick={handleJoinClub} style={{ marginTop: "20px" }}>
         Join Club
       </Button>
+
+      <Snackbar open={snackbarOpen} autoHideDuration={6000} onClose={() => setSnackbarOpen(false)}>
+        <Alert onClose={() => setSnackbarOpen(false)} severity={snackbarSeverity} sx={{ width: "100%" }}>
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    padding: 20,
-    backgroundColor: '#f5f5f5',
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
-  },
-  input: {
-    width: '80%',
-    padding: 15,
-    borderWidth: 1,
-    borderColor: '#ccc',
-    borderRadius: 10,
-    marginBottom: 20,
-  },
-  button: {
-    width: '80%',
-    padding: 15,
-    backgroundColor: '#6200ee',
-    borderRadius: 10,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: '#fff',
-    fontSize: 18,
-    fontWeight: 'bold',
-  },
-});
 
 export default JoinClubScreen;
